@@ -32,7 +32,6 @@ RUN cd /build/app && \
 
 
 FROM scratch
-WORKDIR /app
-COPY --from=build /build/app/cmake-build/tplink-hs110-client ./
+COPY --from=build /build/app/cmake-build/tplink-hs110-client /app/
 
 CMD [ "/app/tplink-hs110-client" ]
