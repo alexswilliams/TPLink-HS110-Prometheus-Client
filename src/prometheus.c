@@ -93,14 +93,14 @@ void registerNewMetrics(const struct config *config, const char *tags,
              "state{%1$s} %2$0.0f\n"
              "# TYPE on_time gauge\n"
              "on_time{%1$s} %3$0.3f\n"
-             "# TYPE voltageMv gauge\n"
-             "voltageMv{%1$s} %4$0.3f\n"
-             "# TYPE currentMa gauge\n"
-             "currentMa{%1$s} %5$0.3f\n"
-             "# TYPE powerMw gauge\n"
-             "powerMw{%1$s} %6$0.3f\n"
-             "# TYPE totalWh gauge\n"
-             "totalWh{%1$s} %7$0.3f\n",
+             "# TYPE voltage_mv gauge\n"
+             "voltage_mv{%1$s} %4$0.3f\n"
+             "# TYPE current_ma gauge\n"
+             "current_ma{%1$s} %5$0.3f\n"
+             "# TYPE power_mw gauge\n"
+             "power_mw{%1$s} %6$0.3f\n"
+             "# TYPE total_wh gauge\n"
+             "total_wh{%1$s} %7$0.3f\n",
              tags,
              sysInfo->state, sysInfo->onTimeSeconds, realTimeInfo->voltageMv, realTimeInfo->currentMa,
              realTimeInfo->powerMw, realTimeInfo->totalWh
