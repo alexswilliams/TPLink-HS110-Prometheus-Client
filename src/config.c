@@ -5,23 +5,23 @@
 
 #include "config.h"
 
-static const unsigned long DEFAULT_POLL_TIME_MILLIS = 5000;
-static const char *const DEFAULT_PORT = "9999";
+static const long defaultPollTimeMillis = 5000;
+static const char *const defaultPort = "9999";
 
 
-int get_ul_in_range_with_default(const char *const name, unsigned long *const out, const long long min,
-                                 const long long max, const unsigned long default_value) {
+int getLongInRangeWithDefault(const char *const name, long *const out, const long long min,
+                              const long long max, const long defaultValue) {
     char *value = getenv(name);
 
     if (value == NULL) {
-        *out = default_value;
+        *out = defaultValue;
         return 0;
     }
 
-    char *last_valid_character = NULL;
-    long long val = strtoll(value, &last_valid_character, 10);
+    char *lastValidCharacter = NULL;
+    long long val = strtoll(value, &lastValidCharacter, 10);
 
-    if (last_valid_character == NULL || last_valid_character[0] != '\0') {
+    if (lastValidCharacter == NULL || lastValidCharacter[0] != '\0') {
         fprintf(stderr, "%s was not an integer: %s\n", name, value);
         fflush(stderr);
         return 1;
@@ -35,7 +35,7 @@ int get_ul_in_range_with_default(const char *const name, unsigned long *const ou
     return 0;
 }
 
-int get_non_empty_string(const char *const name, const char **const out) {
+int getNonEmptyString(const char *const name, const char **const out) {
     char *value = getenv(name);
 
     if (value == NULL || value[0] == '\0') {
@@ -48,11 +48,11 @@ int get_non_empty_string(const char *const name, const char **const out) {
     return 0;
 }
 
-int get_string_with_default(const char *const name, const char **const out, const char *const default_value) {
+int getStringWithDefault(const char *const name, const char **const out, const char *const defaultValue) {
     char *value = getenv(name);
 
     if (value == NULL) {
-        *out = default_value;
+        *out = defaultValue;
         return 0;
     }
     *out = value;
@@ -60,16 +60,16 @@ int get_string_with_default(const char *const name, const char **const out, cons
 }
 
 
-int get_env_vars(struct config *const config) {
+int getEnvVars(struct config *config) {
     int errors = 0;
 
-    errors += get_ul_in_range_with_default("POLL_TIME_MILLIS", &config->poll_time_millis, 0, UINT32_MAX,
-                                           DEFAULT_POLL_TIME_MILLIS);
-    errors += get_non_empty_string("TPLINK_HOST", &config->hostname);
-    errors += get_string_with_default("TPLINK_PORT", &config->port, DEFAULT_PORT);
-    errors += get_non_empty_string("PUSH_GW_HOST", &config->push_gateway_host);
-    errors += get_non_empty_string("PUSH_GW_PORT", &config->push_gateway_port);
-    errors += get_non_empty_string("PUSH_GW_ENDPOINT", &config->push_gateway_endpoint);
+    errors += getLongInRangeWithDefault("POLL_TIME_MILLIS", &config->pollTimeMillis, 0, UINT32_MAX,
+                                        defaultPollTimeMillis);
+    errors += getNonEmptyString("TPLINK_HOST", &config->hostname);
+    errors += getStringWithDefault("TPLINK_PORT", &config->port, defaultPort);
+    errors += getNonEmptyString("PUSH_GW_HOST", &config->pushGatewayHost);
+    errors += getNonEmptyString("PUSH_GW_PORT", &config->pushGatewayPort);
+    errors += getNonEmptyString("PUSH_GW_ENDPOINT", &config->pushGatewayEndpoint);
 
     if (errors == 0) {
         printf("Polling TPLink HS110 with the following configuration: \n"
@@ -77,8 +77,8 @@ int get_env_vars(struct config *const config) {
                " • Host: %s\n"
                " • Port: %s\n"
                " • Push Gateway URI: http://%s:%s%s\n",
-               config->poll_time_millis, config->hostname, config->port, config->push_gateway_host,
-               config->push_gateway_port, config->push_gateway_endpoint);
+               config->pollTimeMillis, config->hostname, config->port, config->pushGatewayHost,
+               config->pushGatewayPort, config->pushGatewayEndpoint);
         fflush(stdout);
         return 0;
     }

@@ -3,21 +3,21 @@
 
 #include "config.h"
 
-void update_metrics(const struct config *vars);
+void updateMetrics(const struct config *vars);
 
-struct sys_info {
+struct sysInfo {
     char *alias;
     char *id;
     char *mac;
     double state;
-    double on_time_seconds;
+    double onTimeSeconds;
 };
 
-struct real_time_info {
-    double voltage_mv;
-    double current_ma;
-    double power_mw;
-    double total_wh;
+struct realTimeInfo {
+    double voltageMv;
+    double currentMa;
+    double powerMw;
+    double totalWh;
 };
 
 #endif //TPLINK_HS110_METRICS_CLIENT_METRICS_H
