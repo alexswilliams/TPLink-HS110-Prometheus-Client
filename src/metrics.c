@@ -82,10 +82,10 @@ int extractRealTimeInfo(const cJSON *const realTimeInfoJson, struct realTimeInfo
     if (getRealtimeObject == NULL) return 1;
 
 
-    if (getNumberKey(getRealtimeObject, "voltageMv", &out->voltageMv) != 0) return 1;
-    if (getNumberKey(getRealtimeObject, "currentMa", &out->currentMa) != 0) return 1;
-    if (getNumberKey(getRealtimeObject, "powerMw", &out->powerMw) != 0) return 1;
-    if (getNumberKey(getRealtimeObject, "totalWh", &out->totalWh) != 0) return 1;
+    if (getNumberKey(getRealtimeObject, "voltage_mv", &out->voltageMv) != 0) return 1;
+    if (getNumberKey(getRealtimeObject, "current_ma", &out->currentMa) != 0) return 1;
+    if (getNumberKey(getRealtimeObject, "power_mw", &out->powerMw) != 0) return 1;
+    if (getNumberKey(getRealtimeObject, "total_wh", &out->totalWh) != 0) return 1;
 
     return 0;
 }
