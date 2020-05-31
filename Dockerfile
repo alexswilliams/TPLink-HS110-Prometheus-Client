@@ -1,4 +1,4 @@
-FROM alpine:3.11.5 as build
+FROM alpine:3.12.0 as build
 # Updated here: https://hub.docker.com/r/arm32v6/alpine/tags
 
 ARG CJSON_VERSION=1.7.13
